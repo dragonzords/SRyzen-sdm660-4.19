@@ -162,7 +162,7 @@ static void tlb_table_flush(struct mmu_gather *tlb)
 
 	if (*batch) {
 		tlb_table_invalidate(tlb);
-		call_rcu_sched(&(*batch)->rcu, tlb_remove_table_rcu);
+		call_rcu(&(*batch)->rcu, tlb_remove_table_rcu);
 		*batch = NULL;
 	}
 }
