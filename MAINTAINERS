@@ -8549,8 +8549,8 @@ F:	drivers/misc/lkdtm/*
 
 LINUX KERNEL MEMORY CONSISTENCY MODEL (LKMM)
 M:	Alan Stern <stern@rowland.harvard.edu>
-M:	Andrea Parri <andrea.parri@amarulasolutions.com>
-M:	Will Deacon <will.deacon@arm.com>
+M:	Andrea Parri <parri.andrea@gmail.com>
+M:	Will Deacon <will@kernel.org>
 M:	Peter Zijlstra <peterz@infradead.org>
 M:	Boqun Feng <boqun.feng@gmail.com>
 M:	Nicholas Piggin <npiggin@gmail.com>
