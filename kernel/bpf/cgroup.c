@@ -140,7 +140,8 @@ static void activate_effective_progs(struct cgroup *cgrp,
 {
 	struct bpf_prog_array __rcu *old_array;
 
-	old_array = xchg(&cgrp->bpf.effective[type], array);
+	old_array = rcu_replace_pointer(cgrp->bpf.effective[type], old_array,
+					lockdep_is_held(&cgroup_mutex));
 	/* free prog array after grace period, since __cgroup_bpf_run_*()
 	 * might be still walking the array
 	 */
