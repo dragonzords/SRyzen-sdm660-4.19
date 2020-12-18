@@ -1690,6 +1690,14 @@ static __poll_t ep_send_events_proc(struct eventpoll *ep, struct list_head *head
 	struct wakeup_source *ws;
 	poll_table pt;
 
+	/*
+	 * Always short-circuit for fatal signals to allow threads to make a
+	 * timely exit without the chance of finding more events available and
+	 * fetching repeatedly.
+	 */
+	if (fatal_signal_pending(current))
+		return -EINTR;
+
 	init_poll_funcptr(&pt, NULL);
 	esed->res = 0;
 
@@ -1920,15 +1928,6 @@ fetch_events:
 	}
 
 send_events:
-	if (fatal_signal_pending(current)) {
-		/*
-		 * Always short-circuit for fatal signals to allow
-		 * threads to make a timely exit without the chance of
-		 * finding more events available and fetching
-		 * repeatedly.
-		 */
-		return -EINTR;
-	}
 	/*
 	 * Try to transfer events to user space. In case we get 0 events and
 	 * there's still timeout left over, we go trying again in search of
