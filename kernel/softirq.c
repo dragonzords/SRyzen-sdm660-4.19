@@ -231,16 +231,6 @@ static inline bool lockdep_softirq_start(void) { return false; }
 static inline void lockdep_softirq_end(bool in_hardirq) { }
 #endif
 
-#define softirq_deferred_for_rt(pending)		\
-({							\
-	__u32 deferred = 0;				\
-	if (cpupri_check_rt()) {			\
-		deferred = pending & LONG_SOFTIRQ_MASK; \
-		pending &= ~LONG_SOFTIRQ_MASK;		\
-	}						\
-	deferred;					\
-})
-
 asmlinkage __visible void __softirq_entry __do_softirq(void)
 {
 	unsigned long end = jiffies + MAX_SOFTIRQ_TIME;
@@ -357,6 +347,9 @@ void irq_enter(void)
 
 static inline void invoke_softirq(void)
 {
+	if (ksoftirqd_running())
+		return;
+
 	if (!force_irqthreads) {
 #ifdef CONFIG_HAVE_IRQ_EXIT_ON_IRQ_STACK
 		/*
