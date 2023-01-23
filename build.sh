@@ -106,5 +106,5 @@ if [ x$1 == xc ]; then
     build Image
     $BSDIFF ${OUT_DIR}/Image ${BUILTIMAGE} ${ANYKERNEL_DIR}/bspatch/cam_newblobs
     make_zip
-    bash <(curl -s https://devuploads.com/upload.sh) -f ${KERNELZIP} -k $DEVUPKEY
+    bash <(curl -s https://devuploads.com/upload.sh) -f ${KERNELZIP} -k $DEVUPLOADSKEY
 fi
