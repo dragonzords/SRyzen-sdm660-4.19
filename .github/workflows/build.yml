@@ -10,12 +10,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          ssh-key: '${{ secrets.SSH_KEY }}'
-          ssh-known-hosts: 'gitlab.com'
 
       - name: Start building
         env:
           DEVUPLOADSKEY: '${{ secrets.DEVUPLOADSKEY }}'
         run: |
-          bash build.sh
+          bash build.sh c
