@@ -29,7 +29,7 @@ setup_env() {
     fi
     if [ ! -d $ANYKERNEL_DIR ]; then
         echo "anykernel directory does not exists, cloning now..."
-        git clone https://github.com/TianWalkzzMiku/AnyKernel3.git -b whyred ${ANYKERNEL_DIR}
+        git clone https://github.com/TianWalkzzMiku/AnyKernel3.git -b whyred_419 ${ANYKERNEL_DIR}
     fi
 
     export PATH=${CLANG_DIR}/bin:${KERNEL_DIR}/bin:${PATH}
