@@ -346,7 +346,9 @@ TRACE_EVENT(sched_load_balance_nohz_kick,
 		__entry->misfit_task_load = cpu_rq(cpu)->misfit_task_load;
 		__entry->cpu_overutil	  = cpu_overutilized(cpu);
 		__entry->kick_cpu	  = kick_cpu;
+#ifdef CONFIG_NO_HZ
 		__entry->nohz_flags	  = atomic_read(nohz_flags(kick_cpu));
+#endif
 	),
 
 	TP_printk("cpu=%d nr_run=%u misfit_task_load=%lu overutilized=%d kick_cpu=%d nohz_flags=0x%lx",
