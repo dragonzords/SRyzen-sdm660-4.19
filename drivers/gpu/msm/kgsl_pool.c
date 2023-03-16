@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-only
 /*
  * Copyright (c) 2016-2021, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
  */
 
 #include <asm/cacheflush.h>
@@ -63,6 +64,15 @@ _kgsl_pool_add_page(struct kgsl_page_pool *pool, struct page *p)
 {
 	llist_add((struct llist_node *)&p->lru, &pool->page_list);
 	atomic_inc(&pool->page_count);
+	/*
+	 * Sanity check to make sure we don't re-pool a page that
+	 * somebody else has a reference to.
+	 */
+	if (WARN_ON_ONCE(unlikely(page_count(p) > 1))) {
+		__free_pages(p, pool->pool_order);
+		return;
+	}
+
 	mod_node_page_state(page_pgdat(p), NR_KERNEL_MISC_RECLAIMABLE,
 			    (1 << pool->pool_order));
 }
