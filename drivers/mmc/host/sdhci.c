@@ -2056,6 +2056,7 @@ void sdhci_cfg_irq(struct sdhci_host *host, bool enable, bool sync)
 	}
 }
 EXPORT_SYMBOL(sdhci_cfg_irq);
+
 static bool sdhci_timing_has_preset(unsigned char timing)
 {
 	switch (timing) {
@@ -2121,7 +2122,7 @@ void sdhci_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
 	if (ios->clock &&
 	    ((ios->clock != host->clock) || (ios->timing != host->timing))) {
 		turning_on_clk = ios->clock && !host->clock;
-			
+
 		spin_unlock_irqrestore(&host->lock, flags);
 		host->ops->set_clock(host, ios->clock);
 		spin_lock_irqsave(&host->lock, flags);
