@@ -24,12 +24,6 @@
 	qcom,qsee-reentrancy-support = <0>;
 };
 
-&firmware {
-	android {
-		/delete-node/ vbmeta;
-	};
-};
-
 &soc {
 	/delete-node/ qcom,qbt1000;
 
