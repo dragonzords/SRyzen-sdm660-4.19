@@ -25,7 +25,7 @@ setup_env() {
 
     if [ ! -d $CLANG_DIR ]; then
         echo "clang directory does not exists, cloning now..."
-        git clone https://github.com/TianWalkzzMiku/SuperRyzen-Clang.git -b main ${CLANG_DIR} --depth 1
+        git clone https://gitlab.com/TianWalkzzMiku/SuperRyzen-Clang.git -b main ${CLANG_DIR} --depth 1
     fi
     if [ ! -d $ANYKERNEL_DIR ]; then
         echo "anykernel directory does not exists, cloning now..."
