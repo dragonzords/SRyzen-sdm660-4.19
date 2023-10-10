@@ -1,16 +1,31 @@
-name: Kernel Build
+name: Kernel Build and Release
 
-on: [push, workflow_dispatch]
+on:
+  push:
+    branches:
+      - stable
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Start building
+      - name: Set up environment
         run: |
           bash build.sh c
+        env:
+          KERNELZIP: ${{ env.KERNELZIP }}
+          PAT: ${{ secrets.PAT }}
+        continue-on-error: true
+
+      - name: Upload Kernel Artifacts
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ env.KERNELZIP }}
+          tag_name: v1.0 # can be changed
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }} # don't forget to set secret variable
