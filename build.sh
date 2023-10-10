@@ -106,5 +106,6 @@ if [ x$1 == xc ]; then
     build Image
     $BSDIFF ${OUT_DIR}/Image ${BUILTIMAGE} ${ANYKERNEL_DIR}/bspatch/cam_newblobs
     make_zip
-    bash <(curl -s https://devuploads.com/upload.sh) -f ${KERNELZIP} -k 1436o8vcxq5hw8p3t4yk
+    echo "Uploading KERNELZIP to GitHub Releases..."
+    gh release upload ${{ github.repository_owner }}/${{ github.repository }} ${{ env.KERNELZIP }} --clobber
 fi
