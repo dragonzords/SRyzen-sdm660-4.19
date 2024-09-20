@@ -123,7 +123,7 @@ upload_release_file() {
 }
 
 setup_env && clean_up
-build vendor/ice_whyred_defconfig
+build vendor/ice-whyred_defconfig
 disable_defconfig CONFIG_NEWCAM_BLOBS
 enable_defconfig CONFIG_DYNAMIC_WHYRED
 if [ x$1 == xgz ]; then
