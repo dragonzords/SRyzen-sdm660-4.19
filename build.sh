@@ -17,7 +17,7 @@ setup_env() {
     export JOBS="$(nproc --all)"
     export BSDIFF=${KERNEL_DIR}/bin/bsdiff
     export BUILD_TIME=$(date +"%Y%m%d-%H%M%S")
-    export KERNELZIP=KCUFKernel-whyred-4.19-KSU-${BUILD_TIME}.zip
+    export KERNELZIP=Ice+Kernel-whyred-4.19-${BUILD_TIME}.zip
     export BUILTIMAGE=${OUT_DIR}/arch/arm64/boot/Image
     export BUILTDTB=${OUT_DIR}/arch/arm64/boot/dts/vendor/qcom/whyred.dtb
     export BUILTFSTABDTB=${OUT_DIR}/arch/arm64/boot/dts/vendor/qcom/whyred_fstab.dtb
@@ -123,7 +123,7 @@ upload_release_file() {
 }
 
 setup_env && clean_up
-build vendor/whyred_defconfig
+build vendor/ice_whyred_defconfig
 disable_defconfig CONFIG_NEWCAM_BLOBS
 enable_defconfig CONFIG_DYNAMIC_WHYRED
 if [ x$1 == xgz ]; then
