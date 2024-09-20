@@ -101,7 +101,7 @@ create_release() {
     url=https://api.github.com/repos/TianWalkzzMiku/SRyzen-sdm660-4.19/releases
     upload_url=$(curl -s \
         -H "Accept: application/vnd.github+json" \
-        -H "Authorization: token ${GITHUB_TOKEN}" \
+        -H "Authorization: token ${PAT}" \
         $url \
         -d "$(generate_release_data)" | jq -r .upload_url | cut -d { -f'1')
 }
