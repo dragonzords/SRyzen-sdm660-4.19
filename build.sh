@@ -17,7 +17,7 @@ setup_env() {
     export JOBS="$(grep -c '^processor' /proc/cpuinfo)"
     export BSDIFF=${KERNEL_DIR}/bin/bsdiff
     export BUILD_TIME=$(date +"%Y%m%d-%T")
-    export KERNELZIP=${ANYKERNEL_DIR}/SRyzenKernel-whyred-4.19-${BUILD_TIME}.zip
+    export KERNELZIP=${ANYKERNEL_DIR}/IceKernel-whyred-4.19-${BUILD_TIME}.zip
     export BUILTIMAGE=${OUT_DIR}/arch/arm64/boot/Image
     export BUILTDTB=${OUT_DIR}/arch/arm64/boot/dts/vendor/qcom/whyred.dtb
     export BUILTFSTABDTB=${OUT_DIR}/arch/arm64/boot/dts/vendor/qcom/whyred_fstab.dtb
@@ -85,7 +85,7 @@ disable_defconfig() {
 }
 
 setup_env && clean_up
-build vendor/super-whyred_defconfig
+build vendor/ice-whyred_defconfig
 disable_defconfig CONFIG_NEWCAM_BLOBS
 enable_defconfig CONFIG_DYNAMIC_WHYRED
 if [ x$1 == xgz ]; then
